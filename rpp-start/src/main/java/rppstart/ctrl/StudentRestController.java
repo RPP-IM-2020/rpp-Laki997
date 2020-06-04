@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,18 +34,21 @@ public class StudentRestController {
 	@Autowired
 	private GrupaRepository grupaRepository;
 	
+	@CrossOrigin
 	@ApiOperation(value = "Returns collection of all Student from database.")
 	@GetMapping("student")
 	public Collection<Student> getAll(){
 		return studentRepository.findAll();
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Returns Student with id that was forwarded as path variable.")
 	@GetMapping("student/{id}")
 	public Student getOne(@PathVariable("id") Integer id) {
 		return studentRepository.getOne(id);
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Returns collection of all Student in Grupa with id that was forwarded as path variable.")
 	@GetMapping("studentZaGrupu/{id}")
 	public Collection<Student> getAllForGrupa(@PathVariable("id") Integer id){
@@ -52,12 +56,14 @@ public class StudentRestController {
 		return studentRepository.findByGrupa(g);
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Returns Student with ime that was forwarded as path variable.")
 	@GetMapping("student/ime/{ime}")
 	public Collection<Student> getByIme(@PathVariable("ime") String ime) {
 		return studentRepository.findByImeContainingIgnoreCase(ime);
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Adds instance of Student to database.")
 	@PostMapping("student")
 	public ResponseEntity<HttpStatus> addStudent (@RequestBody Student student){
@@ -66,6 +72,7 @@ public class StudentRestController {
 		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Updates Student that has id that was forwarded as path variable with values forwarded in Request Body. ")
 	@PutMapping("student/{id}")
 	public ResponseEntity<HttpStatus> updateStudent(@RequestBody Student student,
@@ -79,6 +86,8 @@ public class StudentRestController {
 		
 		return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
 	}
+	
+	@CrossOrigin
 	@ApiOperation(value = "Delete Student with id that was forwarded as path variable.")
 	@DeleteMapping("student/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable Integer id){

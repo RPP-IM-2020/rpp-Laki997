@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class ProjekatRestController {
 	@Autowired
 	public JdbcTemplate jdbcTemplate;
 	
+	@CrossOrigin
 	@ApiOperation(value = "Returns collections of all Projekat from database.")
 	@GetMapping("projekat")
 	public Collection<Projekat> getAll(){
@@ -34,6 +36,7 @@ public class ProjekatRestController {
 		return projekatRepository.findAll();
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Returns Projekat with id that was forwarded as path variable.")
 	@GetMapping("projekat/{id}")
 	public Projekat getOne(@PathVariable("id") Integer id) {
@@ -41,12 +44,14 @@ public class ProjekatRestController {
 		return projekatRepository.getOne(id);
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value ="Returns Projekat with naziv that was forwarded as path variable.")
 	@GetMapping("projekat/naziv/{naziv}")
 	public Collection<Projekat> getByNaziv(@PathVariable("naziv") String naziv){
 		return projekatRepository.findByNazivContainingIgnoreCase(naziv);
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Adds instance of Projekat to database.")
 	@PostMapping("projekat")
 	public ResponseEntity<HttpStatus> addProjekat(@RequestBody Projekat projekat) {
@@ -54,6 +59,8 @@ public class ProjekatRestController {
 		
 		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 	}
+	
+	@CrossOrigin
 	@ApiOperation(value = "Updates Projekat that has id that was forwarded as path variable with values forwarded in Request Body. ")
 	@PutMapping("projekat/{id}")
 	public ResponseEntity<HttpStatus> updateProjekat(@RequestBody Projekat projekat,
@@ -68,6 +75,7 @@ public class ProjekatRestController {
 		return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Delete Projekat with id that was forwarded as path variable.")
 	@DeleteMapping("projekat/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable Integer id){

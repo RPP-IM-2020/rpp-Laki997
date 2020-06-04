@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,25 +28,29 @@ public class GrupaRestController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	@CrossOrigin
 	@ApiOperation(value ="Returns collection of all Grupa from database.")
 	@GetMapping("grupa")
 	public Collection<Grupa> getGrupe() {
 		return grupaRepository.findAll();
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Returns Grupa with id that was forwarded as path variable.")
 	@GetMapping("grupa/{id}")
 	public Grupa getGrupa(@PathVariable("id") Integer id) {
 		return grupaRepository.getOne(id);
 		
 	}
+	
+	@CrossOrigin
 	@ApiOperation(value = "Returns Grupa with oznaka that was forwarded as path variable.")
 	@GetMapping("grupa/oznaka/{oznaka}")
 	public Collection<Grupa> getByOznaka(@PathVariable("oznaka") String oznaka){
 		return grupaRepository.findByOznakaContainingIgnoreCase(oznaka);
 	}
 	
-	
+	@CrossOrigin
 	@ApiOperation(value = "Adds instance of Grupa to database.")
 	@PostMapping("grupa")
 	public ResponseEntity<HttpStatus> addOne(@RequestBody Grupa grupa) {
@@ -54,6 +59,7 @@ public class GrupaRestController {
 		
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Updates Grupa that has id that was forwarded as path variable with values forwarded in Request Body. ")
 	@PutMapping("grupa/{id}")
 	public ResponseEntity<HttpStatus> update(@RequestBody Grupa grupa,@PathVariable("id") Integer id){
@@ -68,6 +74,7 @@ public class GrupaRestController {
 		
 	}
 	
+	@CrossOrigin
 	@ApiOperation(value = "Delete Grupa with id that was forwarded as path variable.")
 	@DeleteMapping("grupa/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable Integer id){
